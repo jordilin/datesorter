@@ -19,10 +19,11 @@
       {
         devShell = mkShell {
           buildInputs = [
-            # openssl
-            # pkgconfig
+            just
+            cargo-llvm-cov
+            # llvm-tools-preview needed for llvm-cov test coverage
             (rust-bin.stable.latest.default.override {
-              extensions = [ "rust-src" ];
+              extensions = [ "rust-src" "llvm-tools-preview" ];
             })
             rust-analyzer
           ];
