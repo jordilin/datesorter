@@ -1,3 +1,5 @@
+use datesorter::cli;
+
 fn main() {
-    println!("Hello, world!");
+    cli::parse_args();
 }
