@@ -1,5 +1,23 @@
 use chrono::{DateTime, Local};
 
+pub struct CliArgs {
+    pub input: String,
+    pub delimiter: String,
+    pub date_pos: usize,
+    pub sort_mode: SortMode,
+}
+
+impl CliArgs {
+    pub fn new(input: String, delimiter: String, date_pos: usize, sort_mode: SortMode) -> CliArgs {
+        CliArgs {
+            input,
+            delimiter,
+            date_pos,
+            sort_mode,
+        }
+    }
+}
+
 pub enum SortMode {
     Asc,
     Desc,
