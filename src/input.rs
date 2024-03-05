@@ -1,6 +1,10 @@
-use std::io::BufRead;
+use std::{
+    fs,
+    io::{BufRead, BufReader},
+    path::Path,
+};
 
-use crate::Result;
+use crate::{sort::Timestamp, Result};
 use chrono::{DateTime, Local};
 
 pub struct PreSort {
@@ -19,7 +23,13 @@ impl PreSort {
     }
 }
 
-pub fn parse_input<R: BufRead>(input: R, delimiter: &str, date_pos: usize) -> Result<Vec<PreSort>> {
+impl Timestamp for PreSort {
+    fn date(&self) -> DateTime<Local> {
+        self.date
+    }
+}
+
+pub fn parse<R: BufRead>(input: R, delimiter: &str, date_pos: usize) -> Result<Vec<PreSort>> {
     let data = input
         .lines()
         .map(|line| {
@@ -33,6 +43,11 @@ pub fn parse_input<R: BufRead>(input: R, delimiter: &str, date_pos: usize) -> Re
         })
         .collect::<Result<Vec<PreSort>>>()?;
     Ok(data)
+}
+
+pub fn read_file<P: AsRef<Path>>(path: P) -> Result<BufReader<fs::File>> {
+    let file = std::fs::File::open(path)?;
+    Ok(std::io::BufReader::new(file))
 }
 
 #[cfg(test)]
@@ -62,7 +77,7 @@ mod test {
             ),
         ];
         let input = format!("{}{}", line1, line2);
-        let result = parse_input(input.as_bytes(), ",", 2).unwrap();
+        let result = parse(input.as_bytes(), ",", 2).unwrap();
         assert_eq!(expected[0].date, result[0].date);
         assert_eq!(expected[0].fields, result[0].fields);
         assert_eq!(expected[0].date_pos, result[0].date_pos);

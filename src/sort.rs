@@ -25,8 +25,8 @@ pub enum SortMode {
 
 pub fn sort_by_date<D: Timestamp>(mut data: Vec<D>, sort_mode: &SortMode) -> Vec<D> {
     match sort_mode {
-        SortMode::Asc => data.sort_by(|a, b| a.date().cmp(&b.date())),
-        SortMode::Desc => data.sort_by(|a, b| b.date().cmp(&a.date())),
+        SortMode::Asc => data.sort_by_key(|a| a.date()),
+        SortMode::Desc => data.sort_by_key(|b| std::cmp::Reverse(b.date())),
     }
     data
 }
