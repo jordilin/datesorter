@@ -1,4 +1,5 @@
 pub mod cli;
+pub mod exec;
 pub mod input;
 pub mod sort;
 
