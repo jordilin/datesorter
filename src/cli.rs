@@ -7,7 +7,7 @@ use crate::sort::{CliArgs, SortMode};
 #[derive(Parser)]
 #[command(about = "Sorts data by date")]
 struct Args {
-    #[clap(help = "input file")]
+    #[clap(help = "input file or - for STDIN")]
     input: String,
     #[clap(long, short, help = "delimiter", default_value = ",")]
     delimiter: String,

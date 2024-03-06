@@ -1,5 +1,4 @@
 use std::{
-    fs,
     io::{BufRead, BufReader},
     path::Path,
 };
@@ -32,6 +31,13 @@ impl Timestamp for PreSort {
 pub fn parse<R: BufRead>(input: R, delimiter: &str, date_pos: usize) -> Result<Vec<PreSort>> {
     let data = input
         .lines()
+        .filter(|line| {
+            if let Ok(line) = line {
+                !line.is_empty()
+            } else {
+                false
+            }
+        })
         .map(|line| {
             let line = line?;
             let fields: Vec<String> = line
@@ -45,9 +51,12 @@ pub fn parse<R: BufRead>(input: R, delimiter: &str, date_pos: usize) -> Result<V
     Ok(data)
 }
 
-pub fn read_file<P: AsRef<Path>>(path: P) -> Result<BufReader<fs::File>> {
+pub fn read_file<P: AsRef<Path>>(path: P) -> Result<Box<dyn BufRead>> {
+    if path.as_ref().to_string_lossy() == "-".to_string() {
+        return Ok(Box::new(BufReader::new(std::io::stdin())));
+    }
     let file = std::fs::File::open(path)?;
-    Ok(std::io::BufReader::new(file))
+    Ok(Box::new(std::io::BufReader::new(file)))
 }
 
 #[cfg(test)]
