@@ -15,9 +15,9 @@ fn test_sort_lines_in_iso8601_fmt_desc() {
     assert_eq!(
         sorted_data,
         vec![
-            "Fusce euismod justo nec,2024-05-18T14:45:30Z,ultricies semper",
-            "Lorem ipsum dolor sit amet,2023-09-05T08:20:15Z,consectetur adipiscing elit",
-            "Nulla facilisi,2022-12-10T11:10:25Z,aliquam euismod",
+            "Fusce euismod justo nec, 2024-05-18T14:45:30Z, ultricies semper",
+            "Lorem ipsum dolor sit amet, 2023-09-05T08:20:15Z, consectetur adipiscing elit",
+            "Nulla facilisi, 2022-12-10T11:10:25Z, aliquam euismod",
         ]
     );
 }
@@ -30,9 +30,9 @@ fn test_sort_lines_in_iso8601_fmt_asc() {
     assert_eq!(
         sorted_data,
         vec![
-            "Nulla facilisi,2022-12-10T11:10:25Z,aliquam euismod",
-            "Lorem ipsum dolor sit amet,2023-09-05T08:20:15Z,consectetur adipiscing elit",
-            "Fusce euismod justo nec,2024-05-18T14:45:30Z,ultricies semper",
+            "Nulla facilisi, 2022-12-10T11:10:25Z, aliquam euismod",
+            "Lorem ipsum dolor sit amet, 2023-09-05T08:20:15Z, consectetur adipiscing elit",
+            "Fusce euismod justo nec, 2024-05-18T14:45:30Z, ultricies semper",
         ]
     );
 }
